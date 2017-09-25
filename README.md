@@ -14,7 +14,7 @@ List of dependencies for use sdk
 Please report bugs or issues to https://github.com/Veloccer/IcarrosAPI/issues
 
 # Instalation
-step by step - not ready
+composer require veloccer/icarro
 
 # Wiki
 To learn more about api Icarros, all features, functions, read the [wiki here](https://github.com/Veloccer/IcarrosAPI/wiki).
