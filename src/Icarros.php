@@ -557,14 +557,13 @@ class Icarros
 	**/
     public function postImage($params)
     {
-
-    	$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/inventory/'.$params['deal_id'].'/image';
+    	$endpoint = $this->_api . '/dealerservice/dealer/'.$params['deale_id'].'/inventory/'.$params['deal_id'].'/image';
 		return $this->request($endpoint)
             ->addHeader('Accept', 'application/json')
             ->addHeader('Content-Type', 'application/json')
-			->addHeader('Authorization', self::$cfg['token'])
-			->addPost('mimetype', $params['mimetype'])
-			->addPost('conteudo', $params['image_64'])
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->addPost('conteudo', $params['image_64'])
+            ->addPost('mimetype ', $params['mimetype'])
             ->getResponse();
     }
 
@@ -594,7 +593,7 @@ class Icarros
 	**/
     public function putDeal($params)
 	{
-		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/inventory/'.$params['deal_id'];
+		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/inventory'.$params['deal_id'];
 
 		return $this->request($endpoint)
             ->addHeader('Accept', 'application/json')
@@ -614,6 +613,7 @@ class Icarros
             ->addPut('text', $params['text'])
             ->addPut('dealerId', $params['dealer_id'])
             ->addPut('equipmentsIds', $params['equipments_ids'])
+            ->addPut('photosIds', $params['photos_ids'])
             ->getResponse();
 	}
 
