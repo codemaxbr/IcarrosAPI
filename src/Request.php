@@ -90,6 +90,12 @@ class Request
         return $this;
     }
 
+    public function imprimir(){
+        print_r(json_encode($this->_posts));
+        exit(0);
+        return $this;
+    }
+
     public function getResponse()
     {
 

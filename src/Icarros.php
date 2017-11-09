@@ -557,13 +557,13 @@ class Icarros
 	**/
     public function postImage($params)
     {
-    	$endpoint = $this->_api . '/dealerservice/dealer/'.$params['deale_id'].'/inventory/'.$params['deal_id'].'/image';
+		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/inventory/'.$params['deal_id'].'/image';
 		return $this->request($endpoint)
             ->addHeader('Accept', 'application/json')
             ->addHeader('Content-Type', 'application/json')
             ->addHeader('Authorization', self::$cfg['token'])
             ->addPost('conteudo', $params['image_64'])
-            ->addPost('mimetype ', $params['mimetype'])
+			->addPost('mimetype', $params['mimetype'])
             ->getResponse();
     }
 
