@@ -537,7 +537,8 @@ class Icarros
             ->addPost('plate', $params['plate'])
             ->addPost('text', $params['text'])
             ->addPost('dealerId', $params['dealer_id'])
-            ->addPost('equipmentsIds', $params['equipments_ids'])
+			->addPost('equipmentsIds', $params['equipments_ids'])
+			->addPost('publishes', $params['publishes'])
             ->addPost('photosIds', $params['photos_ids'])
             ->getResponse();
 	}
