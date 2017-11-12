@@ -104,7 +104,7 @@ class Request
         if($this->_params){
             $this->_url = $this->_url . '?' . http_build_query($this->_params);
         }
-
+ 
         curl_setopt($ch, CURLOPT_URL, $this->_url);
         curl_setopt($ch, CURLOPT_USERAGENT, $this->_userAgent);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
