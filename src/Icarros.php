@@ -433,7 +433,7 @@ class Icarros
 		return $this->request($endpoint)
             ->addHeader('Accept', 'application/json')
 			->addHeader('Authorization', self::$cfg['token'])
-			->addHeader('lastupdate', '1462060800')
+			->addHeader('lastupdate', $params['date'])
             ->getResponse();
 	}
 
