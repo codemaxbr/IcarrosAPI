@@ -1,5 +1,5 @@
 <?php
-namespace IcarrosAPI;
+namespace webmotorsAPI;
 
 class Request
 {
@@ -23,9 +23,10 @@ class Request
     private $_delete = false;
     private $_headers = [];
     private $_isToken = false;
+    private $_imprimir = false;
 
     public function __construct(
-        Icarros $parent,
+        Webmotors $parent,
         $url)
     {
         $this->_userAgent =  'Veloccer/SDK';
@@ -67,9 +68,16 @@ class Request
         return $this;
     }
 
-    public function addDelete($boolean)
+    public function addDelete(
+        $key,
+        $value)
     {
-        $this->_delete = $boolean;
+        $this->_delete[$key] = $value;
+        return $this;
+    }
+
+    public function imprimir(){
+        $this->_imprimir = true;
         return $this;
     }
 
@@ -90,12 +98,6 @@ class Request
         return $this;
     }
 
-    public function imprimir(){
-        print_r(json_encode($this->_posts));
-        exit(0);
-        return $this;
-    }
-
     public function getResponse()
     {
 
@@ -104,7 +106,7 @@ class Request
         if($this->_params){
             $this->_url = $this->_url . '?' . http_build_query($this->_params);
         }
- 
+
         curl_setopt($ch, CURLOPT_URL, $this->_url);
         curl_setopt($ch, CURLOPT_USERAGENT, $this->_userAgent);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -123,6 +125,10 @@ class Request
             }
             else {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->_posts));
+
+                if($this->_imprimir){
+                    print_r(json_encode($this->_posts));exit(0);
+                }
             }
         }
 
@@ -133,6 +139,7 @@ class Request
 
         if($this->_delete){
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->_delete));
         }
 
         $resp           = curl_exec($ch);
@@ -140,24 +147,34 @@ class Request
         $curl_http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE );
         $header         = substr($resp, 0, $header_len);
         $body           = substr($resp, $header_len);
+        $body = json_decode($body, true);
+
 
         curl_close($ch);
 
         if($curl_http_code == 200) {
-
+            
             return [
                 'status' => 'ok',
-                'body' => json_decode($body, true)
+                'body' => $body
             ];
 
         } else {
 
-            return [
-                'status' => 'fail',
-                'http_code' => $curl_http_code,
-                'header' => $header,
-                'body' => json_decode($body, true)
-            ];
+            if(empty($body['Retorno'])){
+                $body = ['Mensagens' => 'Response is empty'];
+            }
+
+            throw new \Exception(
+                json_encode( 
+                    array(
+                        'status' => 'fail',
+                        'http_code' => $curl_http_code,
+                        'header' => $header,
+                        'body' => $body
+                    )
+                )
+            );
 
         }
 

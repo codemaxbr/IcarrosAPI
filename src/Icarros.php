@@ -125,7 +125,8 @@ class Icarros
             ->addPost('refresh_token', self::$cfg['refresh_token'])
             ->addPost('client_id', self::$cfg['client_id'])
             ->addPost('client_secret', self::$cfg['client_secret'])
-            ->addPost('grant_type', 'refresh_token')
+			->addPost('grant_type', 'refresh_token')
+			->setIsToken()
             ->getResponse();
 	}
 
