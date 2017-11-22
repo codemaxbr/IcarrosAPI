@@ -149,7 +149,6 @@ class Request
         $body           = substr($resp, $header_len);
         $body = json_decode($body, true);
 
-
         curl_close($ch);
 
         if($curl_http_code == 200) {
@@ -175,9 +174,6 @@ class Request
                     )
                 )
             );
-
         }
-
     }
-
 }
