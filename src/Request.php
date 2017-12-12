@@ -1,5 +1,5 @@
 <?php
-namespace webmotorsAPI;
+namespace IcarrosAPI;
 
 class Request
 {
@@ -9,7 +9,7 @@ class Request
      * @var \IcarrosAPI\Icarros
      */
     protected $_parent;
-
+ 
     /**
      * Which API version to use for this request.
      *

@@ -12,7 +12,7 @@ namespace IcarrosAPI;
  *   or commit other online crimes.
  *
  */
-
+ 
 class Icarros
 {
 
@@ -59,9 +59,13 @@ class Icarros
 		if(is_array($data)){
 
 			self::$cfg['client_id'] 	= $data['client_id'];
-			self::$cfg['client_secret'] = $data['client_secret'];			
-			self::$cfg['redirect_uri'] 	= $data['redirect_uri'];
-			self::$cfg['scope'] 		= $data['scope'];
+			self::$cfg['client_secret'] = $data['client_secret'];
+			
+			if(isset($data['redirect_uri']))
+				self::$cfg['redirect_uri'] 	= $data['redirect_uri'];
+
+			if(isset($data['scope']))
+				self::$cfg['scope'] = $data['scope'];
 
 			if(isset($data['response_type']))
 				self::$cfg['response_type'] = $data['response_type'];
@@ -120,6 +124,7 @@ class Icarros
 	*
 	**/
 	public function getRefleshToken(){
+
 		return $this->request($this->_loginUrl . '/token')
 			->addHeader('Accept', 'application/json')
             ->addPost('refresh_token', self::$cfg['refresh_token'])
@@ -147,7 +152,6 @@ class Icarros
             ->getResponse();
 	}
 
-
 	/**
 	* 
 	* Get equipments used in iCarros register
@@ -162,8 +166,7 @@ class Icarros
 		return $this->request($endpoint)
             ->addHeader('Accept', 'application/json')
             ->addHeader('Authorization', self::$cfg['token'])
-            ->getResponse();
-
+			->getResponse();
 	}
 
 	/**
