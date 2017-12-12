@@ -151,7 +151,7 @@ class Icarros
             ->addHeader('Authorization', self::$cfg['token'])
             ->getResponse();
 	}
-
+ 
 	/**
 	* 
 	* Get equipments used in iCarros register

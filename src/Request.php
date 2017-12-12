@@ -9,7 +9,7 @@ class Request
      * @var \IcarrosAPI\Icarros
      */
     protected $_parent;
- 
+  
     /**
      * Which API version to use for this request.
      *
@@ -26,7 +26,7 @@ class Request
     private $_imprimir = false;
 
     public function __construct(
-        Webmotors $parent,
+        Icarros $parent,
         $url)
     {
         $this->_userAgent =  'Veloccer/SDK';
