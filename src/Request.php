@@ -9,7 +9,7 @@ class Request
      * @var \IcarrosAPI\Icarros
      */
     protected $_parent;
-  
+ 
     /**
      * Which API version to use for this request.
      *
@@ -163,17 +163,13 @@ class Request
             if(empty($body['Retorno'])){
                 $body = ['Mensagens' => 'Response is empty'];
             }
-
-            throw new \Exception(
-                json_encode( 
-                    array(
-                        'status' => 'fail',
-                        'http_code' => $curl_http_code,
-                        'header' => $header,
-                        'body' => $body
-                    )
-                )
-            );
+ 
+            return [
+                'status' => 'fail',
+                'http_code' => $curl_http_code,
+                'header' => $header,
+                'body' => $body
+            ];
         }
     }
 }
